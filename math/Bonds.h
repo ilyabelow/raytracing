@@ -18,5 +18,6 @@ Bound circle(float r);
 
 Bound lengthConstrain(float start, float end);
 
+Bound square(float a);
 
 #endif //RAYTRACING_BONDS_H

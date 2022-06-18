@@ -19,3 +19,6 @@ Bound circle(float r) {
 Bound lengthConstrain(float start, float end) {
     return [start, end](Point p) {return p.x > start && p.x < end;};
 }
+Bound square(float a) {
+    return [a](Point p) {return p.x < a && p.y < a && p.x > -a && p.y > -a;};
+}

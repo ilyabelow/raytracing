@@ -39,6 +39,34 @@ Scene getScene() {
     );
 }
 
+Scene getShape() {
+
+    return Scene({
+                     // Flower
+                     (new Sphere({0, 0, 0}, 1.5, {0, -90_o, 10_o}))
+                         ->setTexture((new Gradient(RED, YELLOW, -90_o, 75_o))->addTransform(fromSpherical()))
+                         ->setBound([](Point p) { return p.y < std::sin(p.x * 10) / 2; }),
+                     (new Sphere({0, 0, -1}, 0.5))
+                         ->setTexture(new Gradient("AD0000", RED, -90_o, 90_o)),
+                     // Pads
+                     (new Plane({1, 0, 0}, {0, 1, 0}, {-.3, .3, -1.6}))
+                         ->setTexture((new Gradient("49CE00", "01A600", 0, 2))
+                         ->addTransform([](Point p) { return Point(0,std::sqrt(sqr(p.x + 0.3)+ sqr(p.y - .3)));
+                                          }))
+                         ->setBound(circle(2)), (new Plane({1, 0, 0}, {0, 1, 0}, {0, -.6, -1.5}))
+                         ->setTexture((new Gradient("49CE00", "14BF13", 0, 1.5))
+                                          ->addTransform([](Point p) { return Point(0,
+                                                                                    std::sqrt(
+                                                                                        sqr(p.x) + sqr(p.y + .6)));
+                                          }))
+                         ->setBound(circle(1.5))
+                 },
+                 Camera({-6, 0, 3},
+                        {0, 35_o, 0},
+                        {500, 500}, 1)
+    );
+}
+
 Scene getDick() {
     return Scene({
                      // Body
@@ -63,14 +91,40 @@ Scene getDick() {
                            {500, 500}, 1));
 }
 
+Scene getMirror() {
+    float mirror_size = 5;
+    float backdrop_size = 5;
+    return Scene({
+                     (new Sphere({0, 0, 0}, 1, {135_o, -60_o, 30_o}))
+                         ->setTexture((new Squares(BLUE, GREEN))->addTransform(fromSpherical())),
+                     // Mirror 1
+                     (new Plane({5, -1, 0}, {0, 0, 1}, {1, 2, 0}))
+                         ->setMaterial(new Mirror(0.2))
+                         ->setTexture(new SolidColor("009A51"))
+                         ->setBound(square(mirror_size)),
+                     // Mirror 2
+                     (new Plane({-5, -1, 0}, {0, 0, 1}, {1, -2, 0}))
+                         ->setMaterial(new Mirror(0.2))
+                         ->setTexture(new SolidColor("009A51"))
+                         ->setBound(square(mirror_size)),
+                     // Backdrop
+                     (new Plane({0, 0, 1}, {0, 1, 0}, {10, 0, 0}))
+                         ->setTexture(new Squares(BLACK, WHITE))
+                         ->setBound(square(backdrop_size))
+
+                 }, Camera({-10, 0, 3},
+                           {0, 15_o, 0},
+                           {500, 500}, 1));
+}
+
 int main() {
     std::string output_dir = "/home/ilyabelow/Code/raytracing/output/";
     std::string file_ext = ".bmp";
 
-    Scene scene = getScene();
+    Scene scene = getShape();
 
     Renderer renderer(&scene);
-    renderer.render(output_dir + "rays15" + file_ext);
+    renderer.render(output_dir + "shape" + file_ext);
 
     return 0;
 }

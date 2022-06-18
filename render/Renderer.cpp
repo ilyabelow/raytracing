@@ -19,7 +19,7 @@ void Renderer::render(const char *target) {
 }
 
 Color Renderer::sendLine(Line line, int order) {
-    if (order == 5) {
+    if (order == 10) {
         return BLACK;
     }
     auto collision = scene->intersect(line);
