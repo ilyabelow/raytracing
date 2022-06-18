@@ -30,4 +30,6 @@ _(it's a water lily)_
 * **Quaternions!** because `Direction` abstraction sucks
 * **Custom textures!** for that I'll have to read image files w/ external library
 * **Concurrency!** so it runs fast
+* **Drawing to a screen!** because opening files in not cool
+* **Anti-Aliasing!** so distant textures are not as noisy
 * **More demos!** and bug fixes
