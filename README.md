@@ -1,3 +1,7 @@
+**Note: I wrote this before I found out about SDF and graphics pipeline in general**
+
+
+
 # Raytracing
 
 Simple raytracer that I've written as an exercise in C++ and geometry using only my brain and C++ standard library
